@@ -6,9 +6,8 @@ description: How host/user/home declarations transform into NixOS/Darwin/HM conf
 import { Steps, Aside } from '@astrojs/starlight/components';
 
 <Aside title="Source" icon="github">
-[`modules/context/os.nix`](https://github.com/vic/den/blob/main/modules/context/os.nix) --
-[`modules/context/types.nix`](https://github.com/vic/den/blob/main/modules/context/types.nix) --
-[`modules/config.nix`](https://github.com/vic/den/blob/main/modules/config.nix)
+[`nix/lib/ctx-apply.nix`](https://github.com/vic/den/blob/main/nix/lib/ctx-apply.nix) --
+[`nix/lib/ctx-types.nix`](https://github.com/vic/den/blob/main/nix/lib/ctx-types.nix)
 </Aside>
 
 ## Pipeline Overview
@@ -65,7 +64,7 @@ flowchart TD
 
 3. Deduplication
 
-	`dedupIncludes` in `modules/context/types.nix` ensures:
+	`assembleIncludes` in `nix/lib/ctx-apply.nix` ensures:
 
 	- **First occurrence** of a context type uses `parametric.fixedTo`, which includes
 	  owned configs + statics + parametric matches.
@@ -91,7 +90,7 @@ flowchart TD
 
 5. Output
 
-	`modules/config.nix` collects all hosts and homes, calls `host.instantiate`
+	`modules/outputs` collects all hosts and homes, calls `host.instantiate`
 	(defaults to `lib.nixosSystem`, `darwinSystem`, or `homeManagerConfiguration`
 	depending on class), and places results into `flake.nixosConfigurations`,
 	`flake.darwinConfigurations`, or `flake.homeConfigurations`.

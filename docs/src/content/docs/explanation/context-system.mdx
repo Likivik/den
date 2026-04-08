@@ -32,7 +32,7 @@ flowchart TD
   maidhost -->|"into.maid-user"| maiduser["{host, user}"]
 ```
 
-The framework defines these contexts in `modules/context/os.nix` and the various battery modules.
+The framework defines these contexts in `modules/context/` and the various battery modules.
 Each battery (Home Manager, hjem, nix-maid, WSL) registers its own `into.*` transitions on the `host` context.
 
 ## Context Type Anatomy
